@@ -59,3 +59,60 @@ int main() {
 	return 0;
 	system("pause");
 }
+03.O（N）排序
+#include<iostream>//时间复杂度为O(N^2)的排序
+#include<vector>
+using namespace std;
+//冒泡排序
+vector<int>& Bubblesort(vector<int>& a) {//函数中的容器参数以引用方式传入，不然会引发访问冲突
+for (int i = a.size(); i > 0; i--) {
+		for (int j = 0; j+1 < i; j++) {
+			if (a[j] > a[j + 1]) {
+				swap(a[j], a[j + 1]);
+			}
+		}
+	}
+	return a;
+}
+//选择排序
+vector<int>& Choosensort(vector<int>& a) {
+	for (int i = 0; i < a.size(); i++) {
+		int minnum = i;
+		for (int j = i + 1; j < a.size() - 1; j++) {
+			if (a[j] < a[minnum]) {
+				minnum = j; //找到最小的索引
+			}
+		}
+		int temp = a[minnum];
+		a[minnum] =a[i];
+		a[i]=temp;
+	}
+	return a;
+}
+//插入排序
+vector<int>&insertsort(vector<int>& a)
+{
+	int n = a.size();
+	for (int j = 1; j < n; j++) {
+		int key = a[j];
+		int i = j - 1;
+		while (i >= 0 && key < a[i]) {
+			a[i + 1] = a[i]; i--;
+		}
+		a[i+1] = key;
+	}
+	return a;
+}
+
+//打印
+void Printit(vector<int>b)
+{
+	for (int j = 0; j < b.size(); j++) {
+		cout << b[j] << endl;
+	}
+}
+int main()//测试
+{
+	vector<int>test{ 6,4,5,3,2,9 };
+	Printit(insertsort(test));
+}
