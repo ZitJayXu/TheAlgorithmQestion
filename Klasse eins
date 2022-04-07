@@ -2,6 +2,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
+//转换任意整数为二进制；
 void GetbitofNum(int n) {
 	vector<int>ans; int q = abs(n), bit;
 	while (q > 0) {
