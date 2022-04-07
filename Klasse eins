@@ -25,3 +25,37 @@ int main() {
 	return 0;
 	system("pause");
 }
+02.
+#include<iostream>
+#include<vector>
+using namespace std;
+//给定一个参数N，返回1!+2!+3!+4!+…+N!的结果
+//暴力遍历
+long long GetResult1(long a) {
+	long long  res = 1, count = 0;
+	for (int j = 0; j < a; j++) {
+		for (int i = j+1; i >0; i--) {
+			res *= i;
+		}
+		count += res;
+		res = 1;
+	}
+	return count;
+}
+//递归
+long long func(long a) {
+	return a > 1 ? a * func(a - 1) : 1;
+}
+long long GetResult(long a) {
+	return a > 1 ? func(a) + GetResult(a - 1) : 1;
+}
+//对数器
+bool isRicht(int a) {
+	return GetResult(a) == GetResult1(a);
+}
+//测试
+int main() {
+	cout<<isRicht(100);
+	return 0;
+	system("pause");
+}
