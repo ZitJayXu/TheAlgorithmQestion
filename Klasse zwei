@@ -1,0 +1,88 @@
+01.对数器自定义生成测试数据(有BUG）
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+//数组元素没有负数
+void Swapl(int& a, int& b) {
+	a = a ^ b; b = a ^ b; a = a ^ b;
+}
+//数组元素存在负数
+void Swapr(int& a, int& b) {
+	int temp = a;
+	a = b;
+	b = temp;
+}
+vector<int>& Choosensort(vector<int>& a) {
+	if (a.size() < 2) {
+		return a;
+	}
+	for (int i = 0; i < a.size(); i++) {
+		int minnum = i;
+		for (int j = i + 1; j < a.size() - 1; j++) {
+			minnum = a[j] < a[minnum] ? j : minnum; //找到最小的索引
+		}
+		Swapr(a[i], a[minnum]);
+	}
+	return a;
+}
+//比较函数，调库函数
+void comperator(vector<int>a) {
+	sort(a.begin(), a.end());
+}
+//产生随机的数组种子
+vector<int>& generateRandomArr(int maxSize, int maxValue) {
+	srand((unsigned)time(NULL));
+	vector<int>test(rand() % (0, maxSize));
+	for (int i = 0; i < test.size(); i++) {
+		test[i] = rand() % (0, maxValue);
+	}
+	return test;
+}
+vector<int> &copyarr(vector<int>& a) {
+		vector<int>ans;
+		for (int i = 0; i < a.size(); i++) {
+			ans.push_back(a[i]);
+	}
+		return ans;
+}
+//对数器
+bool isEqual(vector<int>& a, vector<int>& b) {
+	if (a.size() != b.size()) {
+		return false;
+	}
+	for (int i = 0; i < a.size(); i++) {
+		if (a[i] != b[i]) {
+			return false;
+		}
+	}
+}
+//打印
+void Printit(vector<int>& s) {
+	for (int i = 0; i < s.size(); i++) {
+		cout << s[i] << " ";
+	}
+	cout << endl;
+}
+void main() {
+	int maxsize = 10,maxvalue = 10,testTime=1;
+	bool flag = true; vector<int>arr1; vector<int>arr2;
+	//生成测试用例
+	for (int i = 0; i < testTime; i++) {
+		 arr1= generateRandomArr(maxsize, maxvalue);
+		 arr2 = copyarr(arr1);
+		Choosensort(arr1);
+		comperator(arr2);
+		if (!isEqual(arr1, arr2)) {
+			flag = false;
+				break;
+				Printit(arr1);
+				Printit(arr2);
+		}
+		arr1.clear();
+		arr2.clear();
+	}
+	cout << flag << endl;
+	system("pause");
+}
+02.实现前缀和数组
