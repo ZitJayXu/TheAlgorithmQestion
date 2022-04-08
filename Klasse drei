@@ -1,0 +1,58 @@
+01.#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<ctime>
+using namespace std;
+//二分查找有序数组中该数字是否存在
+class Solution {
+public:
+	static bool isExist(vector<int>& arr, int key) {
+		int n = arr.size();
+		int L = 0, R = n - 1, mid = 0;
+		if (n == 0) {
+			return false;
+		}
+		while (L < R) {
+			mid = L + ((R - L) >> 1);
+			if (arr[mid] == key) {
+				return true;
+			}
+			if (arr[mid] > key) {
+				R = mid - 1;
+			}
+			else if (arr[mid] < key) {
+				L = mid +1;
+			}
+		}
+		return arr[L] == key;
+	}
+	static bool test(vector<int>& a, int key) {
+		int n = a.size();
+		for (int i : a) {
+			if (i == key) {
+				return true;
+			}
+		}
+		return false;
+	}
+};
+int main() {
+	vector<int>res{ 1,5,6,7,2,8,7,4,10 };
+	srand((int)time(NULL));
+	sort(res.begin(), res.end());
+	int maxnum = res[res.size() - 1];
+	int value = rand() % (0, 2*maxnum);
+	bool k = true;
+	if (Solution::isExist(res, value) != Solution::test(res, value))
+	{
+		k = ~k;
+	}
+	if (k){
+			cout << "Munition!";
+	}		
+	else {
+		cout << "scheisse!";
+	}
+	return 0;
+	system("pause");
+}
